@@ -255,7 +255,7 @@ public class CucaDiagramFileMakerSmetana extends CucaDiagramFileMaker {
 		@Fast
 		@Override
 		public XDimension2D calculateDimension(StringBounder stringBounder) {
-			return minMax.getDimension().delta(2 * canvasMargin + 4, canvasMargin);
+			return minMax.getDimension().delta(2 * canvasMargin + 4, canvasMargin + 16);
 		}
 
 		private XPoint2D getCorner(ST_Agnode_s n) {
@@ -650,11 +650,8 @@ public class CucaDiagramFileMakerSmetana extends CucaDiagramFileMaker {
 			final Style arrowStyle = getDefaultStyleDefinitionArrow(link.getStereotype(),
 					skinParam.getDiagramType().getStyleName()).getMergedStyle(link.getStyleBuilder());
 			final LineBreakStrategy styleWidth = arrowStyle.wrapWidth();
-			final LineBreakStrategy wrapWidth = styleWidth.getMaxWidth() > 0
-					? styleWidth
-					: skinParam.maxMessageSize();
-			block = link.getLabel().create0(font, alignment, skinParam, wrapWidth,
-					CreoleMode.SIMPLE_LINE, null, null);
+			final LineBreakStrategy wrapWidth = styleWidth.getMaxWidth() > 0 ? styleWidth : skinParam.maxMessageSize();
+			block = link.getLabel().create0(font, alignment, skinParam, wrapWidth, CreoleMode.SIMPLE_LINE, null, null);
 
 			labelOnly = addVisibilityModifier(block, link, skinParam);
 			if (getLinkArrow(link) != LinkArrow.NONE_OR_SEVERAL && hasSeveralGuideLines == false) {
